@@ -1,0 +1,142 @@
+package thread;
+
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class Packman extends Frame implements KeyListener, Runnable {
+	private Image img;
+	private Image img_food;
+	//private int x1=100, y1=0, x2=50, y2=50;
+	private int sel=2;
+	private int x=225, y=225;
+	private int mx, my; //movex, movey
+	private int[] fx, fy; //food이미지 좌표
+	
+	public Packman() {
+		img = Toolkit.getDefaultToolkit().getImage("packman.jpg");//Toolkit은 추상메소드라 new로 객체생성못함. 메소드로 생성!!
+		img_food = Toolkit.getDefaultToolkit().getImage("food.jpg");
+		
+		//먹이 생성
+		fx = new int[5];
+		fy = new int[5];
+		for(int i=0; i<fx.length; i++) {
+			fx[i] = (int)(Math.random()*461+20); //20~480
+			fy[i] = (int)(Math.random()*461+20);
+		}
+		
+		setBounds(700, 200, 500, 500);
+		setVisible(true);
+		setResizable(false); //창고정
+		
+		//이벤트
+		addWindowListener(new WindowAdapter() { //종료
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		addKeyListener(this);
+		
+		//스레드 생성
+		Thread t = new Thread(this);
+		t.start(); //run() 찾아감, start만 해주면 run을 언제할지는 시스템이 알아서함
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		g.drawImage(img, 
+					x, y, x+50, y+50, //화면 위치
+					sel*50, 0, sel*50+50, 50, //이미지 위치
+					this);	
+		//먹이
+		for(int i=0; i<fx.length; i++) {
+			g.drawImage(img_food, fx[i], fy[i], this);  //먹이생성
+			if( x+25 >= fx[i]-10 &&  y+25 <= fy[i]-10 
+			&&  x+25 <= fx[i]+30 &&  y+25 >= fy[i]+30 ) {
+				fx[i] = -100;
+				fy[i] = -100;
+			}
+		}
+	}
+	
+	@Override //Override에는 throws 쓰면 안됨 -> try~catch사용
+	public void run() {
+		while(true) {
+			if(sel%2 == 0) sel++; //입벌린팩맨(짝수)이면 홀수로 만들어주고
+			else sel--; //입다문팩맨(홀수)이면 짝수로 만들어주고
+			
+			x+=mx;
+			y+=my;
+			
+			if(x>500) x=0;
+			else if(x<0) x=500;
+			else if(y>500) y=0;
+			else if(y<0) y=500;
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			repaint(); //기존의 paint된걸 버리고 다시 그리는건 여기서 해줘야 함
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
+		else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+			sel=0;
+			mx=-10;
+			my=0;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			sel=2;
+			mx=+10; my=0;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_UP) {
+			sel=4;
+			mx=0; my=-10;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+			sel=6;
+			mx=0; my=+10;
+		}
+		
+//		else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//			x1=0; y1=0; x2=50; y2=50;
+//			repaint();
+//		}
+//		else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+//			x1=100; y1=0; x2=150; y2=50;
+//			repaint();
+//		}
+//		else if(e.getKeyCode() == KeyEvent.VK_UP) {
+//			x1=200; y1=0; x2=250; y2=50;
+//			repaint();
+//		}
+//		else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+//			x1=300; y1=0; x2=350; y2=50;
+//			repaint();
+//		}
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	public static void main(String[] args) {
+		new Packman();
+		
+	}
+
+	
+}

@@ -1,0 +1,21 @@
+/* 1/16(목) 3-2 */
+package network;
+
+public class ProtocolClient {서버삭 먼저 실행serversocket이 클라이언트가 들어올떄까지 무하정 기다림
+	클라이언트는 서버가 제공하는 서버ip와 port 번호를 가지공 ㅣㅆ음
+	서버소켓이 클라이언트가 보낸 데이터를 낚아채서 클라이언트오ㅘ 통신하기 위한 소켓 생성
+serversockeㅅ은 io가 없음
+io를 가지공 ㅣ쓴건 socket뿐, 클라이언트와 통신하려면 서버측에도 소켓이 필요
+=>
+
+}
+서버
+serversocket
+socket
+
+
+
+
+
+socket		socket
+클

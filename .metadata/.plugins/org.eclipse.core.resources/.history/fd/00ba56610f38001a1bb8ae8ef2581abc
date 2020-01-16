@@ -1,0 +1,16 @@
+/* 1/16(목) 3-2 */
+package network;
+
+public class ProtocolClient {
+	private Socket socket;
+	
+	public ProtocolClient() {
+		socket = new Socket("서버IP", port)
+	}
+	
+	public static void main(String[] args) {
+		new ProtocolClient();
+	}
+
+}
+

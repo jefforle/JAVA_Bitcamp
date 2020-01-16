@@ -1,0 +1,22 @@
+package io;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class ByteStream {
+
+	public static void main(String[] args) throws IOException {
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream("data.txt"));
+		
+		int data; //read()는 데이터를 int형으로 return 
+		
+		//파일을 읽다가 더이상 잃을게 없으면 -1반환
+		while((data = bis.read()) != -1) {
+			System.out.println(data);
+		}
+
+	}
+
+}

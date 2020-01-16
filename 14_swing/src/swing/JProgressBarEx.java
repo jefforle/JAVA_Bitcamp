@@ -1,0 +1,79 @@
+package swing;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+
+public class JProgressBarEx extends JFrame implements ActionListener, Runnable {
+	private JProgressBar pbar = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+	private JButton startBtn = new JButton("start");
+	private JButton stopBtn = new JButton("stop");
+	
+	public JProgressBarEx() {
+		Container con = getContentPane();
+		con.setLayout(new BorderLayout());
+		con.add("North", new JLabel("프로그래스바"));
+		con.add("Center", pbar);
+		pbar.setStringPainted(true);
+		pbar.setString("0%");
+		
+		JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		p.add(startBtn);
+		p.add(stopBtn);		
+		con.add("South", p);
+		
+		startBtn.addActionListener(this);
+		stopBtn.addActionListener(this);
+		setSize(300, 200);
+		setVisible(true);
+	}
+	
+	private boolean bb = true;
+	private static int n;
+	public void run() {
+		if(n==100) n=0;
+		for(int i=n; i<=100; i++) {
+			if(!bb) break;
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+			}
+			pbar.setValue(i);
+			n=i;
+			pbar.setString(i+"%");
+			
+		}
+		startBtn.setEnabled(true);
+		stopBtn.setEnabled(false);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == startBtn) {
+			bb = true;
+			new Thread(this).start();
+			startBtn.setEnabled(false);
+			stopBtn.setEnabled(true);
+		}
+		else if(e.getSource() == stopBtn) {
+			bb = false;
+			startBtn.setEnabled(true);
+			stopBtn.setEnabled(false);
+		}
+	}
+	
+	public static void main(String[] args) {
+		new JProgressBarEx();
+	}
+
+
+
+}

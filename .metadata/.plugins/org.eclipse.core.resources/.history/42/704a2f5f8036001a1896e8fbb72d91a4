@@ -1,0 +1,37 @@
+package io;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class DataStream {
+
+	public static void main(String[] args) throws IOException {
+		//DataOutputStream dos = new DataOutputStream(new FileOutputStream("result.txt"));
+		
+		//FileOutputStream fos = new FileOutputStream("result.txt"); //위와 같은말
+		//DataOutputStream dos = new DataOutputStream(fos);
+		
+		//위와 같은말
+		File file = new File("result.txt"); //File 먼저 생성, File이 있어야 Data를 읽어올 수 있음
+		FileOutputStream fos = new FileOutputStream(file); //데이터를 읽어올 수 있도록 길을 만들어 주는 작업, File로 갈 수있는 길
+		DataOutputStream dos = new DataOutputStream(fos);  //File의 Data를 가져오는 길
+		
+		dos.writeUTF("홍길동");
+		dos.writeInt(25);
+		//dos.writeFloat(285.3); //--java는 기본이 double형
+		dos.writeFloat(285.3f);
+		
+		FileInputStream fis = new FileInputStream(file);
+		DataInputStream dis = new DataInputStream(fis);
+		System.out.println("이름:" + dis.readUTF());//데이터는 들어간순서대로 빠져나옴 FIFO
+		System.out.println("나이:"  + dis.readInt());
+		System.out.println("키:" + dis.readFloat()); //들어간 데이터 타입이 float니까 
+		
+		dos.close(); 
+	}
+
+}

@@ -1,0 +1,82 @@
+/* 1/16(목) 3-2 */
+package network;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ProtocolClient {
+	private Socket socket;
+	private BufferedReader br;
+	private BufferedWriter bw;
+	private BufferedReader keyboard;
+	
+	public ProtocolClient() {
+		try {
+			socket = new Socket("192.168.0.32", 9500); //Socket(서버ip, 포트번호)
+			
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream())); //1)소켓이라는 길을 통해 이터가 들어옴
+			bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())); //소켓은 나만갖고 있는게 아니라 상대방도 가지고 있음
+			
+			keyboard = new BufferedReader(new InputStreamReader(System.in)); //2)키보드를 통해 데이터가 들어옴
+			
+		} catch (UnknownHostException e) { //서버가 틀렸을때
+			System.out.println("서버를 찾을 수 없습니다.");
+			e.printStackTrace();
+			System.exit(0);
+		} catch (IOException e) { //서버와 연결이 안된상태
+			System.out.println("서버와 연결이 안되었습니다.");
+			e.printStackTrace();
+			System.exit(0);
+		} 
+		
+		String msg, line;
+		while(true) {
+			try {
+				//서버로 보내는 쪽
+				/*
+				 * "100,angel"
+				 * "200:angel"
+				 * "300:angel:안녕"
+				 */
+				msg = keyboard.readLine(); //readLine()는 엔터 바로 앞까지만 읽기때문에 엔터를 못읽음
+				bw.write(msg+"\n"); //때문에 강제로 엔터(\n)을 보내줘야함 
+				bw.flush(); //버퍼 비우기, 버퍼를 비워줘야 다음데이터가 들어갈 수 있음
+				
+				//서버로 부터 받는 쪽
+				/*
+				 * angel님 입장
+				 * angel님 퇴장
+				 * [angel] 안녕		
+				 */
+				
+				line = br.readLine();
+				System.out.println(line);
+				
+				String[] ar = msg.split(":");
+				if(ar[0].contentEquals("200")) { //200이 들어오면 퇴장하겠다
+					br.close();
+					bw.close();
+					socket.close();
+					
+					keyboard.close();
+					
+					System.exit(0);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+		new ProtocolClient();
+	}
+
+}
+

@@ -1,0 +1,10 @@
+package thread;
+
+public class ATMTest {
+	private long depositMoney = 100000;
+	private long balance; //찾을 금액
+	
+	public static void main(String[] args) {
+		
+	}
+}

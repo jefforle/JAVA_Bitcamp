@@ -1,0 +1,44 @@
+package thread;
+
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+
+public class Racer extends Canvas implements Runnable { //말 1마리
+	//Canvas는 상속해야 사용할 수 있음
+	private Image img;
+	private int pos;
+	private int rank;
+	
+	public Racer() {
+		//setBackground(new Color((int)(Math.random()*256), (int)(Math.random()*256), 255));
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		img = Toolkit.getDefaultToolkit().getImage("horse.gif");
+		g.drawLine(0, this.getHeight()/2, this.getWidth(), this.getHeight()/2);
+		g.drawImage(img, pos, 0, 25, this.getHeight(), this); //img의 x, y, width, height
+	}
+
+	@Override
+	public void run() {
+		for(int i=0; i<this.getWidth(); i+=(int)(Math.random()*10+1)) { //말의 보폭 조절
+			pos = i;
+			repaint();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if(pos==this.getWidth()) {
+				rank++;
+				System.out.println(i+"번 말이 "+rank+"등");
+			}
+		}
+		
+	}
+
+}

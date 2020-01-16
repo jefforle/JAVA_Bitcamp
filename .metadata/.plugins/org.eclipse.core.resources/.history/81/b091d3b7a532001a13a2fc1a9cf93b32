@@ -1,0 +1,29 @@
+package thread;
+
+import java.util.Scanner;
+
+public class ATMTest implements Runnable {
+	private long depositMoney = 100000; //잔액
+	private long balance; //찾을 금액
+	
+	@Override
+	public void run() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println(Thread.currentThread().getName()+"님"); //현재 cpu안에 올라와있는 스레드의 이름만 꺼내와라
+		
+		System.out.print("찾을 금액:");
+		balance = scan.nextLong();
+	
+		
+	}
+	
+	public static void main(String[] args) {
+		ATMTest atm = new ATMTest();
+		Thread mom = new Thread(atm, "엄마"); //mom과 son이 atm을 같이 물고가야 동기화가 일어남
+		Thread son = new Thread(atm, "아들");
+		mom.start();
+		son.start();
+		
+	}
+
+}

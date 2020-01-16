@@ -1,0 +1,49 @@
+package network;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class ChatClient extends JFrame {
+	private JTextArea output;
+	private JTextField input;
+	private JButton send;
+	
+	public ChatClient() {
+		output = new JTextArea();
+		input = new JTextField(10);
+		send = new JButton("전송");
+		JScrollPane scroll = new JScrollPane(output, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		output.setEditable(false); //입력 안되게 막음
+		
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
+		p.add("Center", input); //p.add(input);
+		p.add("East", send); //p.add(send);
+		
+		Container c = this.getContentPane();
+		c.add("Center", scroll);
+		c.add("South", p);
+		
+		
+		
+		
+		setBounds(900,100,300,200);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
+	}
+
+	public static void main(String[] args) {
+		new ChatClient();
+
+	}
+
+}

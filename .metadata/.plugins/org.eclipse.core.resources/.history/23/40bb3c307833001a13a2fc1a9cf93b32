@@ -1,0 +1,131 @@
+package swing;
+
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+
+public class JTableEx2 extends JFrame implements ActionListener{
+	private ArrayList<PersonDTO> list; //list안에 PersonDTO넣겠다
+	private Vector<String> vector;
+	private DefaultTableModel model;
+	private JTable table;
+	private JButton insBtn, delBtn;
+	
+	public JTableEx2() {
+		list = new ArrayList<PersonDTO>();
+		list.add(new PersonDTO("hong", "홍길동", "111", "010-1111-1111"));
+		list.add(new PersonDTO("lee", "이길순", "222", "010-2222-2222"));
+		
+//제목
+		vector = new Vector<String>();
+		vector.addElement("아이디");
+		vector.addElement("이름");
+		vector.add("비밀번호");
+		vector.add("전화번호");
+		
+		//모델 생성, 모델에는 vector(제목)이 들어가있음
+		model = new DefaultTableModel(vector, 0) {//빈 행의 수를 만든다.
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return (column !=0) ? true : false;
+			}
+		};
+		//추상/인터페이스는 익명클래스를 써야 하지만, 익명클래스라고 꼭 추상/인터페이스에만 쓸수 있는게 아님!
+		
+//데이터
+		for(PersonDTO dto : list) {
+			Vector<String> v = new Vector<String>();
+			v.add(dto.getId()); //dto안의 id를 꺼내와라
+			v.add(dto.getName());
+			v.add(dto.getPwd());
+			v.add(dto.getTel());
+			
+			model.addRow(v); //한행으로 집어넣어라
+		}
+		
+		table = new JTable(model);
+		JScrollPane scroll = new JScrollPane(table);
+//버튼생성		
+		insBtn = new JButton("추가");
+		delBtn = new JButton("삭제");
+		
+		JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		p.add(insBtn);
+		p.add(delBtn);
+		
+		Container con = this.getContentPane();
+		con.add("Center", scroll);
+		con.add("South", p);
+		
+		insBtn.addActionListener(this);
+		delBtn.addActionListener(this);
+//		
+		setBounds(700,200,500,400);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == insBtn) insert();
+		else if (e.getSource() == delBtn) delete();
+	}
+	
+	public void insert() {
+		String id = JOptionPane.showInputDialog(this, "아이디 입력"); //다이얼로그로 입력받아라
+		if(id == null) return; //id값이 하나도 안들어왔을 경우
+		for(int i=0; i<model.getRowCount(); i++) {
+			if(id.equals(model.getValueAt(i, 0))){
+				JOptionPane.showInputDialog(this, "사용중인 아이디");
+				return; //insert()함수 나가기
+			}			
+		}
+		String name = JOptionPane.showInputDialog(this, "이름 입력");
+		String pwd = JOptionPane.showInputDialog(this, "비밀번호 입력");
+		String tel = JOptionPane.showInputDialog(this, "전화번호 입력");
+		
+		//list.add(new PersonDTO(id, name, pwd, tel));
+		
+		Vector<String> v = new Vector<String>();
+		v.add(id); //dto안의 id를 꺼내와라
+		v.add(name);
+		v.add(pwd);
+		v.add(tel);
+		
+		model.addRow(v);
+	}
+	
+	public void delete() {
+		String name = JOptionPane.showInputDialog(this, "삭제할 이름 입력");
+		int count=0;
+		
+		Iterator<PersonDTO> it = list.iterator();
+		while(it.hasNext()) { //it가 가르키는 곳에 항목이 있으면 다음으로 넘어가고
+			PersonDTO dto = it.next(); //현재 위치의 항목을 dto에 넘겨라
+			if(name.equals(dto.getName())){	
+				it.remove(); //it.next()가 반환한 값 = dto의 값을 지워라 	
+				
+			}
+			count++;	
+		}
+	}
+
+	public static void main(String[] args) {
+		new JTableEx2();
+
+	}
+
+}

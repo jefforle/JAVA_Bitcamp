@@ -1,0 +1,22 @@
+package thread;
+
+public class ATMTest implements Runnable {
+	private long depositMoney = 100000;
+	private long balance; //찾을 금액
+	
+	@Override
+	public void run() {
+		System.out.println(Thread.currentThread().getName()); //이름만 꺼내와라
+		
+	}
+	
+	public static void main(String[] args) {
+		ATMTest atm = new ATMTest();
+		Thread mom = new Thread(atm, "엄마"); //mom과 son이 atm을 같이 물고가야 동기화가 일어남
+		Thread son = new Thread(atm, "아들");
+		mom.start();
+		son.start();
+		
+	}
+
+}

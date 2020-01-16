@@ -1,0 +1,16 @@
+package report_0114;
+
+public class ScoreDTO {
+	private String hak; //학번
+	private String name;
+	private int kor;
+	private int eng;
+	private int math;
+	private int tot;
+	private double avg;
+	
+	public ScoreDTO() {
+		
+	}
+
+}

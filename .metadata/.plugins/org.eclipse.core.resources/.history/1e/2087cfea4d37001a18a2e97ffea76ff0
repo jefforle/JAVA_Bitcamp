@@ -1,0 +1,128 @@
+package report_0114_tech;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+/* JFrame 창 만들기 */
+public class ScoreForm extends JFrame implements ActionListener{
+	private JLabel hakL, nameL, korL, engL, mathL;
+	private JTextField hakT, nameT, korT, engT, mathT;
+	private JTextArea area;
+	private JButton inputB, outputB, searchB, rankB, saveB, readB;
+
+//	private ScoreImpl si; --틀린건 아님
+	private Score si; //but, 접근객체를 부모로 많이 잡음
+	
+	public ScoreForm() {
+		si = new ScoreImpl(); /* ★ */
+		setLayout(null);
+		hakL = new JLabel("학번");
+		nameL = new JLabel("이름");
+		korL = new JLabel("국어");
+		engL = new JLabel("영어");
+		mathL = new JLabel("수학");
+		
+		hakT = new JTextField(20);
+		nameT = new JTextField(20);
+		korT = new JTextField(20);
+		engT = new JTextField(20);
+		mathT = new JTextField(20);
+		
+		area = new JTextArea();
+		
+		inputB = new JButton("입력");
+		outputB = new JButton("출력");
+		searchB = new JButton("학번검색");
+		rankB = new JButton("순위");
+		saveB = new JButton("파일저장");
+		readB = new JButton("파일읽기");
+		
+		JPanel westP = new JPanel();
+		westP.setBounds(20, 30, 280, 500);
+		westP.add(hakL); westP.add(hakT);
+		westP.add(nameL); westP.add(nameT);
+		westP.add(korL); westP.add(korT);
+		westP.add(engL); westP.add(engT);
+		westP.add(mathL); westP.add(mathT);
+	
+		//JPanel textP = new JPanel();
+		area.setBounds(300, 30, 260, 150);
+		area.setBackground(new Color(255,255,255));
+		this.add(area);
+		
+		JPanel btnP = new JPanel();
+		btnP.setBounds(10, 200, 600, 300);
+		btnP.add(inputB);
+		btnP.add(outputB);
+		btnP.add(searchB);
+		btnP.add(rankB);
+		btnP.add(saveB);
+		btnP.add(readB);
+		
+		Container c = this.getContentPane();
+		c.add(westP);
+		c.add(area);
+		c.add(btnP);
+		//c.add("West",area);
+
+		setBounds(700, 300, 600, 400);
+		setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		inputB.addActionListener(this);
+		outputB.addActionListener(this);
+		searchB.addActionListener(this);
+		rankB.addActionListener(this);
+		saveB.addActionListener(this);
+		readB.addActionListener(this);		
+		
+	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	
+		if(e.getSource() == inputB) {
+			ScoreDTO dto = new ScoreDTO(hakT.getText(), nameT.getText(), 
+					Integer.parseInt(korT.getText()), Integer.parseInt(engT.getText()), Integer.parseInt(mathT.getText()));
+			
+			si.input(dto);
+			//입력 이후 초기화
+			hakT.setText("");
+			nameT.setText("");
+			korT.setText("");
+			engT.setText("");
+			mathT.setText("");
+			
+		}else if(e.getSource() == outputB) {
+			si.print(area);
+	
+		}else if(e.getSource() == searchB) {
+			si.search(area);	
+			
+		}else if(e.getSource() == rankB) {
+			si.tot_desc();
+			
+		}else if(e.getSource() == saveB) {
+			si.save();
+			
+		}else if(e.getSource() == readB) {
+			si.load();
+		}
+		
+	}
+
+	
+}

@@ -1,0 +1,101 @@
+package interface_1;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Panel;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+
+//Frame은 BorderLayout(동서남북)으로 잡혀있음
+public class WindowTest2 extends Frame implements WindowListener, ActionListener {
+	private Button newB, exitB; //null값 가지고 있음, 생성자에서 초기화 시켜
+	private TextArea area;
+	
+	public void init() {
+		newB = new Button("새로만들기");
+		exitB = new Button("끝내기"); //버튼은 물같아서 어디에 잡히냐에 따라 모양이 달라짐
+		area = new TextArea();
+		
+		Panel p = new Panel(); //Panel은 FlowLayout(올라온 순서대로 배치-가운데 기준으로)
+		p.setBackground(new Color(100,255,100));
+		p.add(newB); //버튼을 쟁반(패널)위에 올리고
+		p.add(exitB);
+		
+		this.add("North", p); //쟁반을 프레임위에 올려라
+		this.add("Center", area);
+		
+//		add("North", newB);
+//		this.add("North", exitB);
+		
+		setBounds(100, 200, 300, 400);
+		setVisible(true); 
+		
+		//이벤트
+		this.addWindowListener(this); //창도 나(this) 가지고 있는것도 나(this)
+		newB.addActionListener(this);
+		exitB.addActionListener(this); //주체.무슨리스너를 필요로 하느냐.(어디에있느냐)
+	}
+
+	public static void main(String[] args) {
+		new WindowTest2().init(); //생성자말고 init() 호출
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		System.exit(0);
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==newB) {
+			area.setText(" "); //공백으로 덮어쓰고 
+			area.setText(""); //"":초기화 문자열
+		}
+		else if(e.getSource()==exitB)
+			System.exit(0);
+	}
+
+}

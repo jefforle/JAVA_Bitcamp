@@ -1,0 +1,28 @@
+/* [그림판 2] 
+ * 도형 누적시키기
+ * 도형 1개에 대한 정보 : 좌표6개, 채우기, 도형 모양, 색 => ShapeDTO
+   ArrayList로 저장해놓고 list를 뿌려줘야 함
+ * 1. 도형을 그린다
+ * 2. ShapeDTO에 저장
+ * 3. ArrayList에 보관
+ * ---------------------------
+ * 1. ArrayList에 보관 ShapeDTO를 꺼내서 그린다
+ * 2. 새로운 도형을 그린다
+ * 
+ */
+package swing;
+
+import javax.swing.JTextField;
+
+public class ShapeDTO {
+//	private int x1, x2, y1, y2, z1, z2;
+//	private boolean fillyn;
+//	private String shape;
+//	private String color;
+	private JTextField x1, x2, y1, y2, z1, z2;
+	private JCheckBox fill;
+	
+	public ShapeDTO(MsPaint msPaint) {
+		x1 = 
+	}
+}

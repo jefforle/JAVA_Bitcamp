@@ -1,0 +1,57 @@
+package report_0114;
+
+import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.JTextArea;
+
+import swing.PersonDTO;
+
+/* Score 구현 */
+public class ScoreImpl implements Score{
+
+	ArrayList<ScoreDTO> list = new ArrayList<ScoreDTO>(); 
+
+	@Override
+	public void input(ScoreDTO dto) { 
+		list.add(dto);
+	}
+
+
+	@Override
+	public void print(JTextArea output) {
+		for(ScoreDTO dto : list) {
+			output.append(dto.getHak());
+			output.append(dto.getName());
+			output.append(dto.getHak());
+			output.append(dto.getHak());
+			output.append(dto.getHak());
+			output.append(dto.getHak());
+		}
+		
+	}
+
+	@Override
+	public void search(JTextArea output) {
+	
+		
+	}
+
+	@Override
+	public void tot_desc() { //순위
+
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

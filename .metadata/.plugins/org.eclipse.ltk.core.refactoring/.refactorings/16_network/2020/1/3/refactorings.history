@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;network.InterAddressTest&apos; to &apos;InetAddressTest&apos;&#x0D;&#x0A;- Original project: &apos;16_network&apos;&#x0D;&#x0A;- Original element: &apos;network.InterAddressTest&apos;&#x0D;&#x0A;- Renamed element: &apos;network.InetAddressTest&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;InterAddressTest&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;network{InterAddressTest.java[InterAddressTest" matchStrategy="1" name="InetAddressTest" qualified="false" references="true" similarDeclarations="false" stamp="1579135106883" textual="false" version="1.0"/>
+</session>

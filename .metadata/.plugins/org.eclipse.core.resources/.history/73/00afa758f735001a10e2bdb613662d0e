@@ -1,0 +1,72 @@
+/* [그림판 2] 
+ * 도형 누적시키기
+ * 도형 1개에 대한 정보 : 좌표6개, 채우기, 도형 모양, 색 => ShapeDTO
+   ArrayList로 저장해놓고 list를 뿌려줘야 함
+ * 1. 도형을 그린다
+ * 2. ShapeDTO에 저장
+ * 3. ArrayList에 보관
+ * ---------------------------
+ * 1. ArrayList에 보관 ShapeDTO를 꺼내서 그린다
+ * 2. 새로운 도형을 그린다
+ * 
+ */
+package swing;
+
+import javax.swing.JTextField;
+
+public class ShapeDTO {
+	private MsPaint msPaint;
+
+	private int x1, x2, y1, y2, z1, z2;
+	private boolean fillyn;
+	private String shape;
+	private String color;
+	
+	
+	public ShapeDTO(MsPaint msPaint) {
+		this.x1 = Integer.parseInt(msPaint.getX1T().getText().trim()); //trim(): 양끝의 공백을 제거
+		this.y1 = Integer.parseInt(msPaint.getY1T().getText().trim());
+		this.x2 = Integer.parseInt(msPaint.getX2T().getText().trim());
+		this.y2 = Integer.parseInt(msPaint.getY2T().getText().trim());
+		this.z1 = Integer.parseInt(msPaint.getZ1T().getText().trim());
+		this.z2 = Integer.parseInt(msPaint.getZ2T().getText().trim());
+		
+		fillyn = msPaint.getFill().isSelected();
+		
+		shape = msPaint.getName();
+		System.out.println(shape);
+		color = msPaint.getName();
+		
+		
+		
+		
+	}
+//	public ArrayList<ShapeDTO> drawarray(){
+//		public ArrayList<ShapeDTO> list = new ArrayList<PersonDTO>(){
+//			return list;
+//		
+//	}
+	
+//	public void getX1() {
+//		return x1;
+//	}
+//	public void getY1() {
+//		return y1;
+//	}
+//	public void getY1() {
+//		return y1;
+//	}
+//	public void getY1() {
+//		return y1;
+//	}
+//	public void getY1() {
+//		return y1;
+//	}
+//	public void getY1() {
+//		return y1;
+//	}
+//	
+
+	
+	
+}

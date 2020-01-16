@@ -1,0 +1,34 @@
+package thread;
+
+public class Synchronized extends Thread {
+	private static int count;
+	
+	public static void main(String[] args) {
+		Synchronized aa = new Synchronized(); //스레드 생성
+		Synchronized bb = new Synchronized();
+		Synchronized cc = new Synchronized();
+		aa.setName("aa");
+		bb.setName("bb");
+		cc.setName("cc");
+		aa.start();
+		bb.start();
+		cc.start();
+	}
+	
+	//public synchronized void run() { --동기화가 안됨, 1번에 1스레드가 와야되는데 동시에 들어옴..
+	public void run() {
+		synchronized(this) {
+		for(int i=1; i<=5; i++) {
+			count++;
+			System.out.println(Thread.currentThread().getName()+":"+count);
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+
+}

@@ -1,0 +1,37 @@
+/* 1/13 (월) 3 */
+package thread;
+//싱글톤 : 메모리에 하나만 만들어라 
+public class SingleTon { 
+	private int num=3;
+	private static SingleTon instance; //static영역에 클래스타입의 변수생성
+	
+	public static SingleTon getInstance() {
+		if(instance == null) //프로그램에서 딱1회만 null, 프로그램의 맨처음
+			synchronized(SingleTon.class) { //1개의 스레드만 통과시켜줌
+				instance = new SingleTon(); //딱 1번만 처리된다
+			}
+		return instance;
+	}
+	
+	public static void main(String[] args) {
+//		SingleTon aa = new SingleTon();
+//		aa.num++;
+//		System.out.println("aa=" + aa);
+//		System.out.println("num="+ aa.num);
+//		System.out.println();
+//		
+//		SingleTon bb = new SingleTon();
+//		bb.num++;
+//		System.out.println("bb=" + bb);
+//		System.out.println("num="+ bb.num);
+//		System.out.println();
+		
+		System.out.println("*** 싱글톤");
+//		SingleTon cc = new SingleTon(); //이러면 절대 안되!
+		SingleTon cc = SingleTon.getInstance();
+		SingleTon cc = SingleTon.getInstance();
+		SingleTon cc = SingleTon.getInstance();
+		SingleTon cc = SingleTon.getInstance(); //cc를 여러개 만들어도 메모리에는 1번만 생성됨!
+	}
+
+}

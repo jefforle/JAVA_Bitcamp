@@ -1,0 +1,22 @@
+package io;
+
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+public class DataStream {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		//DataOutputStream dos = new DataOutputStream(new FileOutputStream("result.txt"));
+		
+		FileOutputStream fos = new FileOutputStream("result.txt"); //위와 같은말
+		DataOutputStream dos = new DataOutputStream(fos);
+		
+		File File = new File("result.txt");
+		FileOutputStream fos = new FileOutputStream(file); //위와 같은말
+		DataOutputStream dos = new DataOutputStream(fos);
+
+	}
+
+}

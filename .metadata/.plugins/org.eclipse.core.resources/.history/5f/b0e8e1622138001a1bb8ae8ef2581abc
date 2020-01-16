@@ -1,0 +1,17 @@
+/* 1/16(목) 3-3 */
+package network;
+
+import java.net.ServerSocket;
+
+public class ProtocolServer {
+	private ServerSocket serverSocket;
+	
+	public ProtocolServer() {
+		serverSocket = new ServerSocket(9500);
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+	
+}

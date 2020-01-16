@@ -1,0 +1,19 @@
+package io;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
+public class ByteStream2 {
+
+	public static void main(String[] args) {
+		File file = new File("data.txt");
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream("data.txt"));
+		int size = file.length(); //파일 크기, 
+		
+		//파일
+		byte[] b = new byte[size];
+
+	}
+
+}

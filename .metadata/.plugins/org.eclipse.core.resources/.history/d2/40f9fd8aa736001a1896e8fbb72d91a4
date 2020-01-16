@@ -1,0 +1,8 @@
+package report_0114;
+
+public interface Score {
+	public void input(ScoreDTO dto);
+	public void print(JTextArea output);
+	public void search(JTextArea output)
+
+}

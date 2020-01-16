@@ -1,0 +1,19 @@
+package thread;
+
+public class ATMTest implements Runnable {
+	private long depositMoney = 100000;
+	private long balance; //찾을 금액
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void main(String[] args) {
+		Thread mom = new Thread();
+		Thread son = new Thread();
+		
+	}
+
+}

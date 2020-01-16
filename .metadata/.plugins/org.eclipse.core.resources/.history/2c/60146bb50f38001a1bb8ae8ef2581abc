@@ -1,0 +1,18 @@
+/* 1/16(목) 3-2 */
+package network;
+
+import java.net.Socket;
+
+public class ProtocolClient {
+	private Socket socket;
+	
+	public ProtocolClient() {
+		socket = new Socket("192.168.0.32", 9500); //Socket(서버ip, 포트번호)
+	}
+	
+	public static void main(String[] args) {
+		new ProtocolClient();
+	}
+
+}
+

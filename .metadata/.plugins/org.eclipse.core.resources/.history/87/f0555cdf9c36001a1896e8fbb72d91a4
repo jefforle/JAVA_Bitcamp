@@ -1,0 +1,27 @@
+package io;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class ObjectMain {
+
+	public static void main(String[] args) throws IOException, IOException {
+//		PersonDTO dto = new PersonDTO("hong", 25, 285.3);
+//		
+//		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("result2.txt"));
+//		oos.writeObject(dto); //객체를 넘겨줌, 파일안에 객체가 저장됨
+//		oos.close();
+
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("result.txt"));
+		Person
+		ois.readObject();
+		System.out.println("이름:"+dto.getName());
+		System.out.println("이름:"+dto.getName());
+		System.out.println("이름:"+dto.getName());
+		System.out.println("이름:"+dto.getName());
+		
+	}
+
+}
